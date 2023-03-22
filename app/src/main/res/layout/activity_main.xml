@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/button_a_propos"
-        android:layout_width="159dp"
-        android:layout_height="0dp"
+        android:layout_width="138dp"
+        android:layout_height="51dp"
         android:layout_marginStart="16dp"
         android:text="@string/button_a_propos"
         app:layout_constraintBottom_toBottomOf="parent"
