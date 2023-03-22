@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MentalGame</string>
-    <string name="button_play">Play</string>
-    <string name="button_score">Score</string>
+    <string name="button_play" translatable="false">Play</string>
+    <string name="button_score">Meilleurs Score</string>
     <string name="button_a_propos">A Propos</string>
     <string name="button_perso">Personnage</string>
 </resources>
