@@ -16,14 +16,17 @@ import android.widget.Toast;
 import com.example.mentalgame.DAO.CalculBaseHelper;
 import com.example.mentalgame.DAO.CalculDao;
 import com.example.mentalgame.entities.Calcul;
+import com.example.mentalgame.enums.TypeOperationEnum;
 
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class CalculActivity extends AppCompatActivity {
 
     private String Calcul = "";
     private Integer compteurTaille = 0;
     private TextView textViewCalcul;
+    private TextView textViewCalcul2;
     private Button buttonOne;
     private Button buttonDeux;
     private Button buttonTrois;
@@ -38,7 +41,8 @@ public class CalculActivity extends AppCompatActivity {
     private ImageButton buttonRetour;
     private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
-    private String CalculAResoudre;
+    private String calculAResoudre;
+    private Integer resultatATrouver;
 
 
     @Override
@@ -46,6 +50,7 @@ public class CalculActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul);
         textViewCalcul = findViewById(R.id.textcalcul);
+        textViewCalcul2 = findViewById(R.id.textCalcul2);
         buttonOne = findViewById(R.id.button_1);
         buttonOne.setOnClickListener(view -> {
             ajouterNombre("1");
@@ -94,7 +99,8 @@ public class CalculActivity extends AppCompatActivity {
         buttonValider.setOnClickListener(view -> {
             validerReponse();
         });
-        CalculAResoudre = randomCalcul();
+        calculAResoudre = randomCalcul();
+        resultatATrouver = resultatRandomCalcul(calculAResoudre);
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
 
     }
@@ -142,6 +148,42 @@ public class CalculActivity extends AppCompatActivity {
             retour = premierNombre + " * " + deuxiemeNombre;
         }
         return retour;
+    }
+
+    private Integer resultatRandomCalcul(String calcul){
+        String[] termeCalcul;
+        Integer resultat = 0;
+        if(verifieLeCalcul(calcul)) {
+            switch (TypeOperationEnum.wichOneInTheString(calcul)) {
+                case ADD:
+                    termeCalcul = calcul.split(Pattern.quote(TypeOperationEnum.ADD.getSymbole()));
+                    resultat = Integer.parseInt(termeCalcul[0]) + Integer.parseInt(termeCalcul[1]);
+                    break;
+                case SUBSTRACT:
+                    termeCalcul = calcul.split(TypeOperationEnum.SUBSTRACT.getSymbole());
+                    resultat = Integer.parseInt(termeCalcul[0]) - Integer.parseInt(termeCalcul[1]);
+                    break;
+                case MULTIPLE:
+                    termeCalcul = calcul.split(Pattern.quote(TypeOperationEnum.MULTIPLE.getSymbole()));
+                    resultat = Integer.parseInt(termeCalcul[0]) * Integer.parseInt(termeCalcul[1]);
+                    break;
+                case ERROR:
+                    resultat = Integer.valueOf(calcul);
+                default:
+                    break;
+            }
+        }
+        else{
+            Toast.makeText(this,getString(R.string.errors),Toast.LENGTH_LONG).show();
+            return 0;
+        }
+        return resultat;
+    }
+
+    private boolean verifieLeCalcul(String calcul){
+        return !calcul.isEmpty() &&
+                !TypeOperationEnum.isSymboleAlreadyPresent
+                        (String.valueOf(calcul.trim().charAt(calcul.trim().length()-1)));
     }
 
     private void enregistreLeCalcul(Integer resultat){
