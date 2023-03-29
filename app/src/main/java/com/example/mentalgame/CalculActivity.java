@@ -149,6 +149,7 @@ public class CalculActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.toolbar, menu);
+
         MenuItem boutonCalcul = menu.findItem(R.id.toolbar_timer);
         return super.onCreateOptionsMenu(menu);
     }
