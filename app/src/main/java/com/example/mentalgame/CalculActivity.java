@@ -3,6 +3,8 @@ package com.example.mentalgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +26,7 @@ public class CalculActivity extends AppCompatActivity {
     private Button buttonHuit;
     private Button buttonNeuf;
     private Button buttonZero;
+    private Button buttonValider;
     private ImageButton buttonRetour;
 
 
@@ -76,6 +79,11 @@ public class CalculActivity extends AppCompatActivity {
         buttonRetour.setOnClickListener(view -> {
             suppressionNombre();
         });
+        buttonValider = findViewById(R.id.button_valider);
+        buttonValider.setOnClickListener(view -> {
+            validerReponse();
+        });
+
     }
 
     private boolean ajoutCharacter(String characterAjout){
@@ -102,4 +110,7 @@ public class CalculActivity extends AppCompatActivity {
         }
     }
 
+    private boolean validerReponse(){
+        return true;
+    }
 }
