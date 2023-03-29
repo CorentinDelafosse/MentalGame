@@ -4,15 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mentalgame.DAO.CalculBaseHelper;
-import com.example.mentalgame.DAO.CalculDao;
-import com.example.mentalgame.entities.Calcul;
+import java.util.Random;
 
 public class CalculActivity extends AppCompatActivity {
 
@@ -29,9 +28,11 @@ public class CalculActivity extends AppCompatActivity {
     private Button buttonHuit;
     private Button buttonNeuf;
     private Button buttonZero;
+    private Button buttonValider;
     private ImageButton buttonRetour;
 
-    private CalculDao ScoreDao;
+
+    private String CalculAResoudre;
 
 
     @Override
@@ -83,17 +84,13 @@ public class CalculActivity extends AppCompatActivity {
         buttonRetour.setOnClickListener(view -> {
             suppressionNombre();
         });
-
-        ScoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
-
-
-
+        buttonValider = findViewById(R.id.button_valider);
+        buttonValider.setOnClickListener(view -> {
+            validerReponse();
+        });
+        CalculAResoudre = randomCalcul();
     }
 
-    private void enregistreLeCalcul(Integer score){
-        Calcul monCalcul = new Calcul(score);
-        ScoreDao.create(monCalcul);
-    }
     private boolean ajoutCharacter(String characterAjout){
         Calcul += characterAjout;
         textViewCalcul.setText(Calcul);
@@ -117,9 +114,25 @@ public class CalculActivity extends AppCompatActivity {
             return false;
         }
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem boutonCalcul = menu.findItem(R.id.toolbar_calcul);
-        //boutonCalcul.setOnMenuItemClickListener(view -> fonction timer(calcul));
-        return super.onCreateOptionsMenu(menu);
+
+    private boolean validerReponse(){
+        return true;
+    }
+
+
+    private String randomCalcul(){
+        Random rand = new Random();
+        Integer premierNombre = rand.nextInt(999) + 1;
+        Integer deuxiemeNombre = rand.nextInt(999) + 1;
+        Integer signe = rand.nextInt(3);
+        String retour = "";
+        if(signe == 0){
+            retour = premierNombre + " + " + deuxiemeNombre;
+        } else if (signe == 1) {
+            retour = premierNombre + " - " + deuxiemeNombre;
+        } else if (signe == 2) {
+            retour = premierNombre + " * " + deuxiemeNombre;
+        }
+        return retour;
     }
 }
