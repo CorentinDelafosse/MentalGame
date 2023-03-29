@@ -89,6 +89,8 @@ public class CalculActivity extends AppCompatActivity {
             validerReponse();
         });
         CalculAResoudre = randomCalcul();
+
+
     }
 
     private boolean ajoutCharacter(String characterAjout){
