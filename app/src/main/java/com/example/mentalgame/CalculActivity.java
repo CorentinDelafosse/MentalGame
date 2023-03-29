@@ -124,7 +124,7 @@ public class CalculActivity extends AppCompatActivity {
         Random rand = new Random();
         Integer premierNombre = rand.nextInt(999) + 1;
         Integer deuxiemeNombre = rand.nextInt(999) + 1;
-        Integer signe = rand.nextInt(4);
+        Integer signe = rand.nextInt(3);
         String retour = "";
         if(signe == 0){
             retour = premierNombre + " + " + deuxiemeNombre;
@@ -132,8 +132,6 @@ public class CalculActivity extends AppCompatActivity {
             retour = premierNombre + " - " + deuxiemeNombre;
         } else if (signe == 2) {
             retour = premierNombre + " * " + deuxiemeNombre;
-        } else{
-            retour = premierNombre + " / " + deuxiemeNombre;
         }
         return retour;
     }
