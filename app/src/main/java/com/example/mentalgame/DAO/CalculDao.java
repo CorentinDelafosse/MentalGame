@@ -3,7 +3,7 @@ package com.example.mentalgame.DAO;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.td_groupe1.model.entities.Calcul;
+import com.example.mentalgame.entities.Calcul;
 
 
 public class CalculDao extends BaseDao<Calcul> {
