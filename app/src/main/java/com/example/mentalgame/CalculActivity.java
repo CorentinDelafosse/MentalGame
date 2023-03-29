@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class CalculActivity extends AppCompatActivity {
 
     private String Calcul = "";
@@ -28,6 +30,9 @@ public class CalculActivity extends AppCompatActivity {
     private Button buttonZero;
     private Button buttonValider;
     private ImageButton buttonRetour;
+
+
+    private String CalculAResoudre;
 
 
     @Override
@@ -83,7 +88,7 @@ public class CalculActivity extends AppCompatActivity {
         buttonValider.setOnClickListener(view -> {
             validerReponse();
         });
-
+        CalculAResoudre = randomCalcul();
     }
 
     private boolean ajoutCharacter(String characterAjout){
@@ -112,5 +117,24 @@ public class CalculActivity extends AppCompatActivity {
 
     private boolean validerReponse(){
         return true;
+    }
+
+
+    private String randomCalcul(){
+        Random rand = new Random();
+        Integer premierNombre = rand.nextInt(999) + 1;
+        Integer deuxiemeNombre = rand.nextInt(999) + 1;
+        Integer signe = rand.nextInt(4);
+        String retour = "";
+        if(signe == 0){
+            retour = premierNombre + " + " + deuxiemeNombre;
+        } else if (signe == 1) {
+            retour = premierNombre + " - " + deuxiemeNombre;
+        } else if (signe == 2) {
+            retour = premierNombre + " * " + deuxiemeNombre;
+        } else{
+            retour = premierNombre + " / " + deuxiemeNombre;
+        }
+        return retour;
     }
 }
