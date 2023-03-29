@@ -17,7 +17,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="text"
             tools:layout_weight="1" />
 
         <LinearLayout
@@ -115,10 +114,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Space
+                <Button
+                    android:id="@+id/button_valider"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:text="@string/button_valider"
+                    android:visibility="visible" />
 
                 <Button
                     android:id="@+id/button_0"
