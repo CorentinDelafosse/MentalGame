@@ -3,6 +3,8 @@ package com.example.mentalgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +36,7 @@ public class CalculActivity extends AppCompatActivity {
     private Button buttonZero;
     private Button buttonValider;
     private ImageButton buttonRetour;
-
+    private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
     private String CalculAResoudre;
 
@@ -149,7 +151,20 @@ public class CalculActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.toolbar, menu);
-        MenuItem boutonCalcul = menu.findItem(R.id.toolbar_timer);
+        MenuItem textTimer = menu.findItem(R.id.toolbar_timer);
+        countDownTimer = new CountDownTimer(15000,1000) {
+            @Override
+            public void onTick(long l) {
+                int tempsRestantEnSecondes = (int) (l / 1000);
+
+                textTimer.setTitle(String.valueOf(tempsRestantEnSecondes));
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
         return super.onCreateOptionsMenu(menu);
     }
 }
