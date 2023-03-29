@@ -165,6 +165,9 @@ public class CalculActivity extends AppCompatActivity {
 
             }
         }.start();
+
+
+        MenuItem boutonCalcul = menu.findItem(R.id.toolbar_timer);
         return super.onCreateOptionsMenu(menu);
     }
 }
