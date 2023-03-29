@@ -11,6 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mentalgame.DAO.CalculBaseHelper;
+import com.example.mentalgame.DAO.CalculDao;
+import com.example.mentalgame.entities.Calcul;
+
 import java.util.Random;
 
 public class CalculActivity extends AppCompatActivity {
@@ -31,7 +35,7 @@ public class CalculActivity extends AppCompatActivity {
     private Button buttonValider;
     private ImageButton buttonRetour;
 
-
+    private CalculDao scoreDao;
     private String CalculAResoudre;
 
 
@@ -89,7 +93,7 @@ public class CalculActivity extends AppCompatActivity {
             validerReponse();
         });
         CalculAResoudre = randomCalcul();
-
+        scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
 
     }
 
@@ -136,5 +140,16 @@ public class CalculActivity extends AppCompatActivity {
             retour = premierNombre + " * " + deuxiemeNombre;
         }
         return retour;
+    }
+
+    private void enregistreLeCalcul(Integer resultat){
+        com.example.mentalgame.entities.Calcul monCalcul = new Calcul(resultat);
+        scoreDao.create(monCalcul);
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuItem boutonCalcul = menu.findItem(R.id.toolbar_timer);
+        //boutonCalcul.setOnMenuItemClickListener(view -> fonction de timer(calcul));
+        return super.onCreateOptionsMenu(menu);
     }
 }
