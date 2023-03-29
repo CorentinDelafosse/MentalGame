@@ -5,4 +5,5 @@
     <string name="button_a_propos">About</string>
     <string name="button_perso">Character</string>
     <string name="text_vide">Empty</string>
+    <string name="label_meilleurScore" translatable="false">High Score</string>
 </resources>

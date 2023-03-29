@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        BtnAPropos.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this,AproposActivity.class);
+            startActivity(intent);
+        });
+
+
+
 
     }
 }

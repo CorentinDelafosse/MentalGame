@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MentalGame"
         tools:targetApi="31">
         <activity
+            android:name=".AproposActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScoreActivity"
             android:exported="false" />
         <activity
