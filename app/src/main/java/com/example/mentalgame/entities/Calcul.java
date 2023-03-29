@@ -1,16 +1,8 @@
 package com.example.mentalgame.entities;
 
 public class Calcul extends BaseEntity {
-    private String calcul;
+
     private Integer resultat;
-
-    public String getCalcul() {
-        return calcul;
-    }
-
-    public void setCalcul(String calcul) {
-        this.calcul = calcul;
-    }
 
     public Integer getResultat() {
         return resultat;
@@ -20,8 +12,8 @@ public class Calcul extends BaseEntity {
         this.resultat = resultat;
     }
 
-    public Calcul(String calcul, Integer resultat) {
-        this.calcul = calcul;
+    public Calcul(Integer resultat) {
+
         this.resultat = resultat;
     }
 }

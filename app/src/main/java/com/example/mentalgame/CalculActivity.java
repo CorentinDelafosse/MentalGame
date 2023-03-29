@@ -3,11 +3,16 @@ package com.example.mentalgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mentalgame.DAO.CalculBaseHelper;
+import com.example.mentalgame.DAO.CalculDao;
+import com.example.mentalgame.entities.Calcul;
 
 public class CalculActivity extends AppCompatActivity {
 
@@ -25,6 +30,8 @@ public class CalculActivity extends AppCompatActivity {
     private Button buttonNeuf;
     private Button buttonZero;
     private ImageButton buttonRetour;
+
+    private CalculDao ScoreDao;
 
 
     @Override
@@ -76,8 +83,17 @@ public class CalculActivity extends AppCompatActivity {
         buttonRetour.setOnClickListener(view -> {
             suppressionNombre();
         });
+
+        ScoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
+
+
+
     }
 
+    private void enregistreLeCalcul(Integer score){
+        Calcul monCalcul = new Calcul(score);
+        ScoreDao.create(monCalcul);
+    }
     private boolean ajoutCharacter(String characterAjout){
         Calcul += characterAjout;
         textViewCalcul.setText(Calcul);
@@ -101,5 +117,9 @@ public class CalculActivity extends AppCompatActivity {
             return false;
         }
     }
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem boutonCalcul = menu.findItem(R.id.toolbar_calcul);
+        //boutonCalcul.setOnMenuItemClickListener(view -> fonction timer(calcul));
+        return super.onCreateOptionsMenu(menu);
+    }
 }

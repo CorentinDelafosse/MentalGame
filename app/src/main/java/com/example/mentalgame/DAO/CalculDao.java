@@ -7,8 +7,7 @@ import com.example.mentalgame.entities.Calcul;
 
 
 public class CalculDao extends BaseDao<Calcul> {
-    public static String TABLE_NAME = "CALCULS";
-    public static String COLUMN_CALCUL = "CALCUL";
+    public static String TABLE_NAME = "SCORE";
     public static String COLUMN_RESULTAT = "RESULTAT";
 
     public CalculDao(DataBaseHelper helper) {
@@ -22,17 +21,17 @@ public class CalculDao extends BaseDao<Calcul> {
 
     @Override
     protected void putValues(ContentValues values, Calcul entity) {
-        values.put(COLUMN_CALCUL, entity.getCalcul());
+
         values.put(COLUMN_RESULTAT, entity.getResultat());
 
     }
 
     @Override
     protected Calcul getEntity(Cursor cursor) {
-        Integer indexColumnCalcul = cursor.getColumnIndex(COLUMN_CALCUL);
+
         Integer indexColumnResultat = cursor.getColumnIndex(COLUMN_RESULTAT);
         if( cursor.getCount()>0){
-            Calcul monCalcul = new Calcul(cursor.getString(indexColumnCalcul), cursor.getInt(indexColumnResultat));
+            Calcul monCalcul = new Calcul( cursor.getInt(indexColumnResultat));
             return monCalcul;
         }
         return null;

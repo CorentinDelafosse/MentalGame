@@ -10,7 +10,7 @@ public class CalculBaseHelper extends DataBaseHelper {
     @Override
     protected String getCreationSql() {
         return "CREATE TABLE IF NOT EXISTS " + CalculDao.TABLE_NAME + " (" +
-                CalculDao.COLUMN_CALCUL + " VARCHAR(32)," +
+
                 CalculDao.COLUMN_RESULTAT + " INTEGER NOT NULL)";
     }
 
