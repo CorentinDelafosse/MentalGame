@@ -147,9 +147,9 @@ public class CalculActivity extends AppCompatActivity {
         scoreDao.create(monCalcul);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
-
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.toolbar, menu);
         MenuItem boutonCalcul = menu.findItem(R.id.toolbar_timer);
-        //boutonCalcul.setOnMenuItemClickListener(view -> fonction de timer(calcul));
         return super.onCreateOptionsMenu(menu);
     }
 }
