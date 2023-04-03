@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -20,13 +22,30 @@
             android:text="TextView"
             android:textSize="48sp" />
 
-        <TextView
-            android:id="@+id/textcalcul"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="134dp"
+            android:layout_height="198dp"
             android:layout_weight="1"
+            android:background="@drawable/fatebg"
             android:gravity="center"
-            tools:layout_weight="1" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/my_image_view"
+                android:layout_width="309dp"
+                android:layout_height="140dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/textcalcul"
+                android:layout_width="match_parent"
+                android:layout_height="134dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                tools:layout_weight="1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,6 +171,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

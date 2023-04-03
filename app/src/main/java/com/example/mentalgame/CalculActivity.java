@@ -1,7 +1,10 @@
 package com.example.mentalgame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -10,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,8 @@ import com.example.mentalgame.DAO.CalculDao;
 import com.example.mentalgame.entities.Calcul;
 
 import java.util.Random;
+import com.bumptech.glide.Glide;
+
 
 public class CalculActivity extends AppCompatActivity {
 
@@ -96,6 +102,12 @@ public class CalculActivity extends AppCompatActivity {
         });
         CalculAResoudre = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
+
+        ImageView imageView = findViewById(R.id.my_image_view);
+
+        Glide.with(this)
+                .load(R.drawable.gifsaber)
+                .into(imageView);
 
     }
 
