@@ -101,7 +101,7 @@ public class CalculActivity extends AppCompatActivity {
         });
         buttonValider = findViewById(R.id.button_valider);
         buttonValider.setOnClickListener(view -> {
-            validerReponse(resultat, textViewCalcul.getText());
+            validerReponse(resultat, String.valueOf(textViewCalcul.getText()));
         });
         resultat = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
