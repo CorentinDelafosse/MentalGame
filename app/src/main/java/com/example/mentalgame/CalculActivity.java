@@ -21,6 +21,7 @@ import com.example.mentalgame.DAO.CalculBaseHelper;
 import com.example.mentalgame.DAO.CalculDao;
 import com.example.mentalgame.entities.Calcul;
 
+import java.util.ArrayList;
 import java.util.Random;
 import com.bumptech.glide.Glide;
 
@@ -45,8 +46,7 @@ public class CalculActivity extends AppCompatActivity {
     private ImageButton buttonRetour;
     private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
-    private String CalculAResoudre;
-
+    private Integer resultat = 0;
 
 
     @Override
@@ -101,9 +101,9 @@ public class CalculActivity extends AppCompatActivity {
         });
         buttonValider = findViewById(R.id.button_valider);
         buttonValider.setOnClickListener(view -> {
-            validerReponse();
+            validerReponse(resultat, textViewCalcul.getText());
         });
-        CalculAResoudre = randomCalcul();
+        resultat = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
 
         ImageView imageView = findViewById(R.id.my_image_view);
@@ -112,7 +112,7 @@ public class CalculActivity extends AppCompatActivity {
                 .load(R.drawable.gifsaber)
                 .into(imageView);
 
-
+        textViewCalcul.setText(String.valueOf(resultat));
     }
 
     private boolean ajoutCharacter(String characterAjout){
@@ -139,39 +139,43 @@ public class CalculActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validerReponse(){
-
-        return true;
+    private boolean validerReponse(Integer resultat, String reponse){
+        if(resultat == Integer.valueOf(reponse)){
+            return true;
+        }
+        return false;
     }
 
 
-    private String randomCalcul(){
+    private Integer randomCalcul(){
         Random rand = new Random();
         Integer signe = rand.nextInt(3);
         String retour = "";
-
+        Integer resultat = 0;
         if(signe == 0){
             Integer premierNombre = rand.nextInt(999) + 1;
             Integer deuxiemeNombre = rand.nextInt(999) + 1;
             retour = premierNombre + " + " + deuxiemeNombre;
+            resultat = premierNombre + deuxiemeNombre;
         } else if (signe == 1) {
             Integer premierNombre = rand.nextInt(999) + 1;
             Integer deuxiemeNombre = rand.nextInt(999) + 1;
             if(premierNombre<deuxiemeNombre){
                 retour = deuxiemeNombre + " - " + premierNombre;
-
+                resultat = deuxiemeNombre - premierNombre;
             }
             else{
                 retour = premierNombre + " - " + deuxiemeNombre;
-
+                resultat = premierNombre - deuxiemeNombre;
             }
         } else if (signe == 2) {
             Integer premierNombre = rand.nextInt(99) + 1;
             Integer deuxiemeNombre = rand.nextInt(99) + 1;
             retour = premierNombre + " * " + deuxiemeNombre;
+            resultat = premierNombre * deuxiemeNombre;
         }
         textViewCalcul2.setText(retour);
-        return retour;
+        return resultat;
     }
 
     private void enregistreLeCalcul(Integer resultat){
@@ -182,7 +186,7 @@ public class CalculActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.toolbar, menu);
         MenuItem textTimer = menu.findItem(R.id.toolbar_timer);
-        countDownTimer = new CountDownTimer(15000,1000) {
+        countDownTimer = new CountDownTimer(31000,1000) {
             @Override
             public void onTick(long l) {
                 int tempsRestantEnSecondes = (int) (l / 1000);
