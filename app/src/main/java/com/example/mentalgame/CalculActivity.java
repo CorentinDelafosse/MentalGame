@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +22,6 @@ import com.example.mentalgame.DAO.CalculBaseHelper;
 import com.example.mentalgame.DAO.CalculDao;
 import com.example.mentalgame.entities.Calcul;
 
-import java.util.ArrayList;
 import java.util.Random;
 import com.bumptech.glide.Glide;
 
@@ -47,6 +47,7 @@ public class CalculActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
     private Integer resultat = 0;
+    private boolean reussi;
 
 
     @Override
@@ -101,7 +102,10 @@ public class CalculActivity extends AppCompatActivity {
         });
         buttonValider = findViewById(R.id.button_valider);
         buttonValider.setOnClickListener(view -> {
-            validerReponse(resultat, String.valueOf(textViewCalcul.getText()));
+            reussi = validerReponse(resultat, textViewCalcul.getText().toString());
+            resultat = randomCalcul();
+            Calcul = "";
+            textViewCalcul.setText("");
         });
         resultat = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
@@ -111,8 +115,6 @@ public class CalculActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(R.drawable.gifsaber)
                 .into(imageView);
-
-        textViewCalcul.setText(String.valueOf(resultat));
     }
 
     private boolean ajoutCharacter(String characterAjout){
@@ -140,7 +142,7 @@ public class CalculActivity extends AppCompatActivity {
     }
 
     private boolean validerReponse(Integer resultat, String reponse){
-        if(resultat == Integer.valueOf(reponse)){
+        if(resultat.equals(Integer.valueOf(reponse))){
             return true;
         }
         return false;
@@ -189,6 +191,11 @@ public class CalculActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(31000,1000) {
             @Override
             public void onTick(long l) {
+                if(reussi){
+                    countDownTimer.cancel();
+                    countDownTimer.start();
+                    reussi = false;
+                }
                 int tempsRestantEnSecondes = (int) (l / 1000);
 
                 textTimer.setTitle(String.valueOf(tempsRestantEnSecondes));
@@ -199,7 +206,6 @@ public class CalculActivity extends AppCompatActivity {
 
             }
         }.start();
-
 
         MenuItem boutonCalcul = menu.findItem(R.id.toolbar_timer);
         return super.onCreateOptionsMenu(menu);
