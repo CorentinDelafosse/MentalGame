@@ -30,6 +30,7 @@ public class CalculActivity extends AppCompatActivity {
     private String Calcul = "";
     private Integer compteurTaille = 0;
     private TextView textViewCalcul;
+    private TextView textViewCalcul2;
     private Button buttonOne;
     private Button buttonDeux;
     private Button buttonTrois;
@@ -47,11 +48,13 @@ public class CalculActivity extends AppCompatActivity {
     private String CalculAResoudre;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul);
         textViewCalcul = findViewById(R.id.textcalcul);
+        textViewCalcul2 = findViewById(R.id.textCalcul2);
         buttonOne = findViewById(R.id.button_1);
         buttonOne.setOnClickListener(view -> {
             ajouterNombre("1");
@@ -109,6 +112,7 @@ public class CalculActivity extends AppCompatActivity {
                 .load(R.drawable.gifsaber)
                 .into(imageView);
 
+
     }
 
     private boolean ajoutCharacter(String characterAjout){
@@ -136,23 +140,37 @@ public class CalculActivity extends AppCompatActivity {
     }
 
     private boolean validerReponse(){
+
         return true;
     }
 
 
     private String randomCalcul(){
         Random rand = new Random();
-        Integer premierNombre = rand.nextInt(999) + 1;
-        Integer deuxiemeNombre = rand.nextInt(999) + 1;
         Integer signe = rand.nextInt(3);
         String retour = "";
+
         if(signe == 0){
+            Integer premierNombre = rand.nextInt(999) + 1;
+            Integer deuxiemeNombre = rand.nextInt(999) + 1;
             retour = premierNombre + " + " + deuxiemeNombre;
         } else if (signe == 1) {
-            retour = premierNombre + " - " + deuxiemeNombre;
+            Integer premierNombre = rand.nextInt(999) + 1;
+            Integer deuxiemeNombre = rand.nextInt(999) + 1;
+            if(premierNombre<deuxiemeNombre){
+                retour = deuxiemeNombre + " - " + premierNombre;
+
+            }
+            else{
+                retour = premierNombre + " - " + deuxiemeNombre;
+
+            }
         } else if (signe == 2) {
+            Integer premierNombre = rand.nextInt(99) + 1;
+            Integer deuxiemeNombre = rand.nextInt(99) + 1;
             retour = premierNombre + " * " + deuxiemeNombre;
         }
+        textViewCalcul2.setText(retour);
         return retour;
     }
 
