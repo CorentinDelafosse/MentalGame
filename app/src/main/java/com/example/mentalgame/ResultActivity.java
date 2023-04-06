@@ -23,7 +23,8 @@ public class ResultActivity extends AppCompatActivity {
 
         buttonRetour = findViewById(R.id.buttonRetour);
         buttonRetour.setOnClickListener(view -> {
-
+            Intent intentHome = new Intent(ResultActivity.this,MainActivity.class);
+            startActivity(intentHome);
         });
     }
 }
