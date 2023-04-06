@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -236,7 +237,13 @@ public class CalculActivity extends AppCompatActivity {
                 if(bestScore != null && bestScore.getResultat() != null){
                     if(bestScore.getResultat() < score){
                         enregistrerLeScore(score);
+                        Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
+                        startActivity(intent);
                     }
+                }else{
+                    enregistrerLeScore(0);
+                    Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
+                    startActivity(intent);
                 }
             }
         }.start();
