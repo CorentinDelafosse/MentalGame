@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mentalgame.DAO.CalculBaseHelper;
 import com.example.mentalgame.DAO.CalculDao;
@@ -22,7 +23,9 @@ public class ScoreActivity extends AppCompatActivity {
         Calcul monCalcul = calculDao.lastOrNull();
         textViewResultat = findViewById(R.id.textBestScore);
         if(monCalcul != null){
-            textViewResultat.setText(String.valueOf(R.string.best_score) + " : " + monCalcul.getResultat());
+            String affichage = R.string.best_score + " : " + monCalcul.getResultat();
+            Toast.makeText(this, affichage, Toast.LENGTH_SHORT).show();
+            textViewResultat.setText(affichage);
         }
         else{
             textViewResultat.setText(R.string.aucun_score);

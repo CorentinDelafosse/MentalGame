@@ -54,6 +54,7 @@ public class CalculActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
     private Integer resultat = 0;
+    private Integer score = 0;
     private boolean reussi;
 
 
@@ -114,25 +115,25 @@ public class CalculActivity extends AppCompatActivity {
                 Toast.makeText(this, "Vide", Toast.LENGTH_LONG).show();
             else {
                 reussi = validerReponse(resultat, textViewCalcul.getText().toString());
-                resultat = randomCalcul();
-                Calcul = "";
-                textViewCalcul.setText("");
-                Glide.with(CalculActivity.this)
-                        .asGif()
-                        .load(R.drawable.saberfail)
+                if(reussi) {
+                    resultat = randomCalcul();
+                    Calcul = "";
+                    textViewCalcul.setText("");
+                    score++;
+                    Glide.with(CalculActivity.this)
+                            .asGif()
+                            .load(R.drawable.saberfail)
 
-                        .into(imageView);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.with(CalculActivity.this)
-                                .load(R.drawable.gifsaber)
-                                .into(imageView);
-                    }
-                }, 1000);
-
-
-
+                            .into(imageView);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Glide.with(CalculActivity.this)
+                                    .load(R.drawable.gifsaber)
+                                    .into(imageView);
+                        }
+                    }, 1000);
+                }
             }
         });
         resultat = randomCalcul();
@@ -207,10 +208,11 @@ public class CalculActivity extends AppCompatActivity {
         return resultat;
     }
 
-    private void enregistreLeCalcul(Integer resultat){
-        com.example.mentalgame.entities.Calcul monCalcul = new Calcul(resultat);
-        scoreDao.create(monCalcul);
+    private void enregistrerLeScore(Integer score){
+        Calcul monScore = new Calcul(score);
+        scoreDao.create(monScore);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.toolbar, menu);
@@ -230,7 +232,10 @@ public class CalculActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                Calcul bestScore = scoreDao.lastOrNull();
+                if(bestScore.getResultat() < score){
+                    enregistrerLeScore(score);
+                }
             }
         }.start();
 
