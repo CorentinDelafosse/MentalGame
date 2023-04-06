@@ -237,14 +237,14 @@ public class CalculActivity extends AppCompatActivity {
                 if(bestScore != null && bestScore.getResultat() != null){
                     if(bestScore.getResultat() < score){
                         enregistrerLeScore(score);
-                        Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
-                        startActivity(intent);
                     }
                 }else{
-                    enregistrerLeScore(0);
-                    Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
-                    startActivity(intent);
+                    enregistrerLeScore(score);
                 }
+
+                Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
+                intent.putExtra("Score", score);
+                startActivity(intent);
             }
         }.start();
 

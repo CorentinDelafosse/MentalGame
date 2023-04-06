@@ -20,13 +20,10 @@
         android:layout_marginBottom="8dp"
         android:background="@color/black" />
 
-    <ListView
-        android:id="@+id/listViewScores"
+    <TextView
+        android:id="@+id/textViewScore"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:dividerHeight="1dp"
-        android:padding="8dp" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/buttonRetour"
