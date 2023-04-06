@@ -233,7 +233,7 @@ public class CalculActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Calcul bestScore = scoreDao.lastOrNull();
-                if(bestScore.getResultat() != null){
+                if(bestScore != null || bestScore.getResultat() != null){
                     if(bestScore.getResultat() < score){
                         enregistrerLeScore(score);
                     }
