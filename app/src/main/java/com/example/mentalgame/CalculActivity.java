@@ -120,6 +120,7 @@ public class CalculActivity extends AppCompatActivity {
                     resultat = randomCalcul();
                     Calcul = "";
                     textViewCalcul.setText("");
+                    compteurTaille = 0;
                     score++;
                     Glide.with(CalculActivity.this)
                             .asGif()
