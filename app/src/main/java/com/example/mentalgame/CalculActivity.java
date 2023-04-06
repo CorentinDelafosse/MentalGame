@@ -47,6 +47,7 @@ public class CalculActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
     private Integer resultat = 0;
+    private Integer score = 0;
     private boolean reussi;
 
 
@@ -106,9 +107,12 @@ public class CalculActivity extends AppCompatActivity {
                 Toast.makeText(this, "Vide", Toast.LENGTH_LONG).show();
             else {
                 reussi = validerReponse(resultat, textViewCalcul.getText().toString());
-                resultat = randomCalcul();
-                Calcul = "";
-                textViewCalcul.setText("");
+                if(reussi) {
+                    resultat = randomCalcul();
+                    Calcul = "";
+                    textViewCalcul.setText("");
+                    score++;
+                }
             }
         });
         resultat = randomCalcul();
@@ -184,9 +188,9 @@ public class CalculActivity extends AppCompatActivity {
         return resultat;
     }
 
-    private void enregistreLeCalcul(Integer resultat){
-        com.example.mentalgame.entities.Calcul monCalcul = new Calcul(resultat);
-        scoreDao.create(monCalcul);
+    private void enregistreLeScore(Integer score){
+        Calcul monScore = new Calcul(score);
+        scoreDao.create(monScore);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -207,7 +211,7 @@ public class CalculActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                enregistreLeScore(score);
             }
         }.start();
 

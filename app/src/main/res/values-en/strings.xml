@@ -7,4 +7,8 @@
     <string name="text_vide">Empty</string>
     <string name="label_meilleurScore">High Score</string>
     <string name="button_valider">High Score</string>
+    <string name="aucun_score">NO SCORE</string>
+    <string name="best_score">BEST SCORE</string>
+
+
 </resources>

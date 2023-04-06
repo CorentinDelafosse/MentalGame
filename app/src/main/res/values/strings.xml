@@ -21,5 +21,7 @@
     <string name="about_title" translatable="false">A propos</string>
     <string name="about_content" translatable="false">contenu</string>
     <string name="errors" translatable="false">ERROR</string>
+    <string name="aucun_score">AUCUN SCORE</string>
+    <string name="best_score">MEILLEUR SCORE</string>
 
 </resources>

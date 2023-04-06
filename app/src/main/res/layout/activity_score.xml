@@ -12,11 +12,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textBestScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Meilleurs scores"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <ListView
             android:layout_width="match_parent"
