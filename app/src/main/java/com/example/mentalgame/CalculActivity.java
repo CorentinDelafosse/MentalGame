@@ -1,7 +1,9 @@
 package com.example.mentalgame;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,6 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.mentalgame.DAO.CalculBaseHelper;
 import com.example.mentalgame.DAO.CalculDao;
 import com.example.mentalgame.entities.Calcul;
@@ -47,7 +54,6 @@ public class CalculActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private CalculDao scoreDao;
     private Integer resultat = 0;
-    private Integer score = 0;
     private boolean reussi;
 
 
@@ -55,6 +61,7 @@ public class CalculActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul);
+        ImageView imageView = findViewById(R.id.my_image_view);
         textViewCalcul = findViewById(R.id.textcalcul);
         textViewCalcul2 = findViewById(R.id.textCalcul2);
         buttonOne = findViewById(R.id.button_1);
@@ -107,22 +114,34 @@ public class CalculActivity extends AppCompatActivity {
                 Toast.makeText(this, "Vide", Toast.LENGTH_LONG).show();
             else {
                 reussi = validerReponse(resultat, textViewCalcul.getText().toString());
-                if(reussi) {
-                    resultat = randomCalcul();
-                    Calcul = "";
-                    textViewCalcul.setText("");
-                    score++;
-                }
+                resultat = randomCalcul();
+                Calcul = "";
+                textViewCalcul.setText("");
+                Glide.with(CalculActivity.this)
+                        .asGif()
+                        .load(R.drawable.saberfail)
+
+                        .into(imageView);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.with(CalculActivity.this)
+                                .load(R.drawable.gifsaber)
+                                .into(imageView);
+                    }
+                }, 1000);
+
+
+
             }
         });
         resultat = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
-
-        ImageView imageView = findViewById(R.id.my_image_view);
-
         Glide.with(this)
                 .load(R.drawable.gifsaber)
                 .into(imageView);
+
+
     }
 
     private boolean ajoutCharacter(String characterAjout){
@@ -188,9 +207,9 @@ public class CalculActivity extends AppCompatActivity {
         return resultat;
     }
 
-    private void enregistreLeScore(Integer score){
-        Calcul monScore = new Calcul(score);
-        scoreDao.create(monScore);
+    private void enregistreLeCalcul(Integer resultat){
+        com.example.mentalgame.entities.Calcul monCalcul = new Calcul(resultat);
+        scoreDao.create(monCalcul);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -211,10 +230,7 @@ public class CalculActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Calcul bestScore = scoreDao.lastOrNull();
-                if(bestScore.getResultat() < score) {
-                    enregistreLeScore(score);
-                }
+
             }
         }.start();
 
