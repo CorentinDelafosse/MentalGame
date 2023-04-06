@@ -125,15 +125,15 @@ public class CalculActivity extends AppCompatActivity {
                             .load(R.drawable.saberfail)
 
                             .into(imageView);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Glide.with(CalculActivity.this)
-                                    .load(R.drawable.gifsaber)
-                                    .into(imageView);
-                        }
-                    }, 1000);
                 }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.with(CalculActivity.this)
+                                .load(R.drawable.gifsaber)
+                                .into(imageView);
+                    }
+                }, 1000);
             }
         });
         resultat = randomCalcul();
@@ -233,8 +233,10 @@ public class CalculActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Calcul bestScore = scoreDao.lastOrNull();
-                if(bestScore.getResultat() < score){
-                    enregistrerLeScore(score);
+                if(bestScore.getResultat() != null){
+                    if(bestScore.getResultat() < score){
+                        enregistrerLeScore(score);
+                    }
                 }
             }
         }.start();

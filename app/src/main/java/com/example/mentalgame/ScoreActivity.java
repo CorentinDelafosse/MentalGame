@@ -23,8 +23,7 @@ public class ScoreActivity extends AppCompatActivity {
         Calcul monCalcul = calculDao.lastOrNull();
         textViewResultat = findViewById(R.id.textBestScore);
         if(monCalcul != null){
-            String affichage = R.string.best_score + " : " + monCalcul.getResultat();
-            Toast.makeText(this, affichage, Toast.LENGTH_SHORT).show();
+            String affichage = getString(R.string.best_score) + " : " + monCalcul.getResultat();
             textViewResultat.setText(affichage);
         }
         else{
