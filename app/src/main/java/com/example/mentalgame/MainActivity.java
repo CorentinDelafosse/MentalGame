@@ -2,6 +2,7 @@ package com.example.mentalgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Person;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         BtnPlay.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,CalculActivity.class);
+            startActivity(intent);
+        });
+
+        BtnPerso.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, PersoActivity.class);
             startActivity(intent);
         });
 
