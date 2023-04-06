@@ -211,7 +211,10 @@ public class CalculActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                enregistreLeScore(score);
+                Calcul bestScore = scoreDao.lastOrNull();
+                if(bestScore.getResultat() < score) {
+                    enregistreLeScore(score);
+                }
             }
         }.start();
 
