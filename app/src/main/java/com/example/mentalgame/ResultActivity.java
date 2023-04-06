@@ -21,6 +21,7 @@ public class ResultActivity extends AppCompatActivity {
         Integer score = intent.getIntExtra("Score", 0);
         textViewScore.setText(score.toString());
 
+        buttonRetour = findViewById(R.id.buttonRetour);
         buttonRetour.setOnClickListener(view -> {
 
         });
