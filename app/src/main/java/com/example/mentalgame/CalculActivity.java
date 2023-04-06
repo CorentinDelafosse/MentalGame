@@ -102,10 +102,14 @@ public class CalculActivity extends AppCompatActivity {
         });
         buttonValider = findViewById(R.id.button_valider);
         buttonValider.setOnClickListener(view -> {
-            reussi = validerReponse(resultat, textViewCalcul.getText().toString());
-            resultat = randomCalcul();
-            Calcul = "";
-            textViewCalcul.setText("");
+            if(textViewCalcul.getText().toString()=="")
+                Toast.makeText(this, "Vide", Toast.LENGTH_LONG).show();
+            else {
+                reussi = validerReponse(resultat, textViewCalcul.getText().toString());
+                resultat = randomCalcul();
+                Calcul = "";
+                textViewCalcul.setText("");
+            }
         });
         resultat = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
