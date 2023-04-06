@@ -153,9 +153,12 @@ public class CalculActivity extends AppCompatActivity {
     }
 
     private boolean ajouterNombre(String nombre){
-        compteurTaille++;
-        ajoutCharacter(nombre);
-        return true;
+        if(compteurTaille <=4) {
+            compteurTaille++;
+            ajoutCharacter(nombre);
+            return true;
+        }
+        return false;
     }
 
     private boolean suppressionNombre(){
