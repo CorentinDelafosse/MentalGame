@@ -9,7 +9,7 @@
     <string name="button_valider">VALIDATE</string>
     <string name="aucun_score">NO SCORE</string>
     <string name="best_score">BEST SCORE</string>
-    <string name="fonction">function</string>
-    <string name="creator" translatable="false">Creator : Nicolas Delevingne /Corentin Delafosse</string>
-    <string name="surplus" translatable="false">Pour offrir une expérience de jeu plus immersive, il est possible d ajouter un choix de personnages sur la page d accueil. Une fois que l utilisateur a fait son choix, les informations relatives au personnage sélectionné sont stockées dans une variable. Dans le jeu, le personnage ainsi que le fond sont modifiés en fonction du choix effectué, pour une expérience de jeu plus personnalisée. en englais </string>
+    <string name="fonction">Functionality</string>
+    <string name="creator">Creator : Nicolas Delevingne / Corentin Delafosse</string>
+    <string name="surplus">To offer a more immersive gaming experience, it is possible to add a choice of characters on the home page. Once the user has made their choice, the information related to the selected character is stored in a variable. In the game, the character as well as the background are modified according to the choice made, for a more personalized gaming experience. The game consists of entering the correct answer to the displayed calculation. An animation for each character has been created during the waiting period, successful answer, or end of the timer. The timer returns to 30 seconds after each correct answer and stops at 0. It is possible to view the best score recorded on the device.</string>
 </resources>
