@@ -3,6 +3,7 @@ package com.example.mentalgame;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.LayoutDirection;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,10 @@ public class CalculActivity extends AppCompatActivity {
 
     private String Calcul = "";
     private Integer compteurTaille = 0;
+
+    private LinearLayout Imagebg;
+
+    private ImageView ImageGif;
     private TextView textViewCalcul;
     private TextView textViewCalcul2;
     private Button buttonOne;
@@ -56,6 +63,11 @@ public class CalculActivity extends AppCompatActivity {
     private CalculDao scoreDao;
     private Integer resultat = 0;
     private Integer score = 0;
+
+    private Integer idpersowait = 0;
+    private Integer idpersoloose = 0;
+    private Integer idpersoatt = 0;
+
     private boolean reussi;
 
 
@@ -66,6 +78,48 @@ public class CalculActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.my_image_view);
         textViewCalcul = findViewById(R.id.textcalcul);
         textViewCalcul2 = findViewById(R.id.textCalcul2);
+        Imagebg = findViewById(R.id.layoutbg);
+        ImageGif = findViewById(R.id.my_image_view);
+
+        switch(recupId()){
+            case 0:
+                Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.fatebg, null);
+                Imagebg.setBackground(drawable);
+                idpersoatt=R.drawable.saberatt;
+                idpersowait=R.drawable.gifsaber;
+                idpersoloose=R.drawable.saberfail;
+
+                break;
+            case 1:
+                Drawable drawable1 = ResourcesCompat.getDrawable(getResources(), R.drawable.bgkonosuba, null);
+                Imagebg.setBackground(drawable1);
+                idpersoatt=R.drawable.meguminatt;
+                idpersowait=R.drawable.meguminwait;
+                idpersoloose=R.drawable.meguminausol;
+                break;
+            case 2:
+                Drawable drawable2 = ResourcesCompat.getDrawable(getResources(), R.drawable.bgrezero, null);
+                Imagebg.setBackground(drawable2);
+                idpersoatt=R.drawable.rematt;
+                idpersowait=R.drawable.remwait;
+                idpersoloose=R.drawable.remtombe;
+                break;
+            case 3:
+                Drawable drawable3 = ResourcesCompat.getDrawable(getResources(), R.drawable.swordartonlinefield, null);
+                Imagebg.setBackground(drawable3);
+                idpersoatt=R.drawable.kiritoatt;
+                idpersowait=R.drawable.kiritowait;
+                idpersoloose=R.drawable.kiritodead;
+                break;
+            default:
+                break;
+
+        }
+
+
+
+
+
         buttonOne = findViewById(R.id.button_1);
         buttonOne.setOnClickListener(view -> {
             ajouterNombre("1");
@@ -124,7 +178,7 @@ public class CalculActivity extends AppCompatActivity {
                     score++;
                     Glide.with(CalculActivity.this)
                             .asGif()
-                            .load(R.drawable.saberfail)
+                            .load(idpersoatt)
 
                             .into(imageView);
                 }
@@ -132,7 +186,7 @@ public class CalculActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Glide.with(CalculActivity.this)
-                                .load(R.drawable.gifsaber)
+                                .load(idpersowait)
                                 .into(imageView);
                     }
                 }, 1000);
@@ -141,7 +195,7 @@ public class CalculActivity extends AppCompatActivity {
         resultat = randomCalcul();
         scoreDao = new CalculDao(new CalculBaseHelper(this,"BDD",1));
         Glide.with(this)
-                .load(R.drawable.gifsaber)
+                .load(idpersowait)
                 .into(imageView);
 
 
@@ -173,7 +227,11 @@ public class CalculActivity extends AppCompatActivity {
             return false;
         }
     }
-
+    private Integer recupId(){
+        Intent intent = getIntent();
+        Integer Id = intent.getIntExtra("IdPerso", 0);
+        return Id;
+    }
     private boolean validerReponse(Integer resultat, String reponse){
         if(resultat.equals(Integer.valueOf(reponse))){
             return true;
@@ -237,7 +295,13 @@ public class CalculActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                ImageView imageView = findViewById(R.id.my_image_view);
                 Calcul bestScore = scoreDao.lastOrNull();
+                Glide.with(CalculActivity.this)
+                        .asGif()
+                        .load(idpersoloose)
+                        .into(imageView);
+
                 if(bestScore != null && bestScore.getResultat() != null){
                     if(bestScore.getResultat() < score){
                         enregistrerLeScore(score);
@@ -245,10 +309,14 @@ public class CalculActivity extends AppCompatActivity {
                 }else{
                     enregistrerLeScore(score);
                 }
-
-                Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
-                intent.putExtra("Score", score);
-                startActivity(intent);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(CalculActivity.this,ResultActivity.class);
+                        intent.putExtra("Score", score);
+                        startActivity(intent);
+                    }
+                }, 900);
             }
         }.start();
 
