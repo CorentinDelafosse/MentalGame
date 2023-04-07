@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -280,6 +281,12 @@ public class CalculActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.toolbar, menu);
         MenuItem textTimer = menu.findItem(R.id.toolbar_timer);
+        MenuItem boutonNetoyer = menu.findItem(R.id.item);
+        boutonNetoyer.setOnMenuItemClickListener(view -> {
+            Intent intentHome = new Intent(CalculActivity.this,MainActivity.class);
+            startActivity(intentHome);
+            return true;
+        });
         countDownTimer = new CountDownTimer(31000,1000) {
             @Override
             public void onTick(long l) {

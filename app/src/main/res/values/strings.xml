@@ -19,9 +19,11 @@
     <string name="button_valider">Valider</string>
     <string name="label_meilleurScore" translatable="false">Meilleurs scores</string>
     <string name="about_title" translatable="false">A propos</string>
-    <string name="about_content" translatable="false">contenu</string>
+    <string name="creator" translatable="false">Créateur : Nicolas Delevingne /Corentin Delafosse</string>
+    <string name="surplus" translatable="false">Pour offrir une expérience de jeu plus immersive, il est possible d ajouter un choix de personnages sur la page d accueil. Une fois que l utilisateur a fait son choix, les informations relatives au personnage sélectionné sont stockées dans une variable. Dans le jeu, le personnage ainsi que le fond sont modifiés en fonction du choix effectué, pour une expérience de jeu plus personnalisée.</string>
     <string name="errors" translatable="false">ERROR</string>
     <string name="aucun_score">AUCUN SCORE</string>
     <string name="best_score">MEILLEUR SCORE</string>
+    <string name="fonction">Fonctionnalité</string>
 
 </resources>
